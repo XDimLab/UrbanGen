@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="UrbanGen: Urban Generation with Compositional and Controllable Neural Fields">
+  <meta name="keywords" content="video depth estimation, diffusion model">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image:src" content="http://marigoldmonodepth.github.io/images/marigold_logo_square.jpg">
+  <meta name="twitter:title" content="ChronoDepth">
+  <meta name="twitter:description" content="UrbanGen: Urban Generation with Compositional and Controllable Neural Fields">
+  <meta name="twitter:creator" content="@jiahaoshao1">
+
+  <title>UrbanGen: Urban Generation with Compositional and Controllable Neural Fields</title>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1FWSVCGZTG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-1FWSVCGZTG');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/bulma.min.css">
+  <link rel="stylesheet" href="./css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./css/twentytwenty.css">
+  <link rel="stylesheet" href="./css/index.css">
+  <link rel="icon" href="./images/favicon.png">
+
+  <script src="./js/jquery-3.2.1.min.js"></script>
+  <script src="./js/jquery.event.move.js"></script>
+  <script src="./js/jquery.twentytwenty.js"></script>
+  <script src="./js/bulma-carousel.min.js"></script>
+  <script src="./js/bulma-slider.min.js"></script>
+  <script src="./js/fontawesome.all.min.js"></script>
+
+  <!--MathJax-->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">UrbanGen: Urban Generation with Compositional and Controllable Neural Fields</h1>
+          <!-- <h3 class="title has-text-centered"></h3> -->
+          <div class="is-size-5 publication-authors">
+            <!-- <span class="author-block">
+              <a href="https://jhaoshao.github.io/" target="_blank" rel="noopener noreferrer">
+                Jiahao Shao</a><sup>1*</sup>,
+            </span> -->
+            <span class="author-block">
+              <a href="https://github.com/freemty/" target="_blank" rel="noopener noreferrer">
+                Yuanbo Yang</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://shenyujun.github.io/" target="_blank" rel="noopener noreferrer">
+                Yujun Shen</a><sup>2</sup>,
+            </span>
+            </span>
+            <span class="author-block">
+              <a href="https://ywang-zju.github.io/" target="_blank" rel="noopener noreferrer">
+                Yue Wang</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.cvlibs.net/" target="_blank" rel="noopener noreferrer">
+                Andreas Geiger</a><sup>3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://yiyiliao.github.io/" target="_blank" rel="noopener noreferrer">
+                Yiyi Liao</a><sup>1†</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Zhejiang University</span>
+            <span class="author-block"><sup>2</sup>Ant Group</span>
+            <span class="author-block"><sup>3</sup>University of Tübingen</span>
+          </div>
+          <div class="is-size-6 publication-authors">
+            <!-- <span class="author-block"><sup>*</sup>equal contribution; -->
+            <sup>†</sup>corresponding author</span> 
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="" target="_blank" rel="noopener noreferrer"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf" style="color: orangered"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="" target="_blank" rel="noopener noreferrer"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
+              <!-- Colab Link. -->
+              <!-- <span class="link-block">
+                <a href="https://colab.research.google.com/drive/12G8reD13DdpMie5ZQlaFNo2WCGeNUH-u?usp=sharing" target="_blank" rel="noopener noreferrer"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <img src="images/colab.svg">
+                  </span>
+                  <span>&nbsp;Google Colab</span>
+                </a>
+              </span> -->
+              <!-- Hugging Face. -->
+              <!-- <span class="link-block">
+                <a href="https://huggingface.co/spaces/jhshao/ChronoDepth" target="_blank" rel="noopener noreferrer"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      &#129303;
+                  </span>
+                  <span>Hugging Face Space</span> -->
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body" style="margin-bottom: 0px;">
+        <img id="method_train" width="100%" src="./images/teaser.jpg" alt="Marigold training scheme"/>
+        <!-- <iframe width="840" height="473" src="https://www.youtube.com/embed/PuoKWLB9g_s?si=per2Soup1GWCJMfU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> -->
+    </div>
+    <div class="content has-text-justified" style="margin-top: -30px; margin-bottom: 20px;">
+      <p>
+        <b>Overview.</b> In UrbanGen, we introduce a 3D generative model for urban scene synthesis. Specifically, we first curate a unified urban dataset from multiple driving datasets, which includes RGB images paired with their panoptic prior, i.e., a combination of scene semantics and 3D bounding box layouts. We then train UrbanGen, a generative neural radiance field that is conditioned on a latent code, dataset style (such as KITTI, Waymo, or NuScenes), and the panoptic prior. UrbanGen can synthesize high-fidelity, diverse urban scenes with multiple modalities (RGB, depth, and semantic) through volume rendering. Finally, thanks to the design of our pipeline, UrbanGen allows for multiple controls over synthesis results, including control over camera pose, instance editing, stuff semantic editing, global appearance editing, and dataset style editing.
+    </div>
+  </div>
+</section>
+
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <!-- Method. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths" style="margin-top: 30px; margin-bottom: 20px;">
+        <h2 class="title is-3">Method</h2>
+        <div class="content has-text-justified">
+          <div class="hero-body" style="margin-top: 0px; margin-bottom: -30px;">
+            <img id="method_train" width="100%" src="./images/method.png" alt="method"/>
+          </div>
+
+          <p>
+            <b>Method.</b> We utilize panoptic prior in the form of semantic voxel grids and instance object layouts to construct a generative urban radiance field. Our model accepts as input a global noise vector $\mathbf{z}_{wld}$ for the entire scene, $K$ noise vectors $\{\mathbf{z}^k_{obj}\}_{k=1}^K$ for objects, a scene domain class $\mathbf{c} \sim p_{\mathcal{C}}$, and a sampled panoptic prior $\mathbf{V},\mathbf{O} \sim p_{\mathcal{V},\mathcal{O}}$. We decompose the scene into background, stuff, and objects. The stuff generator is conditioned on the semantic voxel grid $\mathbf{V}$ to maintain its semantic and geometric information. Objects are generated in the canonical object coordinate system guided by $\mathbf{O}$. Combined with the background generator, a feature map $\hat{\mathbf{I}}_\mathbf{F}$, depth map $\hat{\mathbf{I}}_{D}$, and semantic map $\hat{\mathbf{I}}_{\mathbf{L}}$ are obtained through volume rendering. We further employ neural rendering to produce the RGB image $\hat{\mathbf{I}}$ and object patches $\hat{\mathbf{P}}_k$. The entire model is optimized jointly with adversarial losses $\mathcal{L}_{adv}^{\mathbf{I}}$ and $\mathcal{L}_{adv}^{\mathbf{P}}$ applied to the full image and object patches, respectively, as well as a geometry loss $\mathcal{L}_{geo}$ for improved underlying geometry, and a semantic loss $\mathcal{L}_{seg}$ for alignment between the rendered appearance and semantic. 
+          </p>
+
+        </div>
+      </div>
+    </div>
+    <!--/ Method. -->
+  </div>
+</section>
+<!-- 
+<section class="hero teaser is-light is-small">
+</section>
+  <div class="hero-body">
+    <div class="container">
+      <div class="section-title has-text-centered" style="margin-top: 10px; margin-bottom: 20px;">
+        <h2 class="title is-3">Object Control on KITTI-360</h2>
+      </div>
+      <div id="results-carousel-horizontal" class="carousel results-carousel">
+
+        
+        <div class="twoitem">
+          <div class="twentytwenty-container twentytwenty-container-top">
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/00_000007835.mp4" type="video/mp4">
+              </video> 
+            </div>
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_depth_vis/depth_vis/00_000007835.mp4" type="video/mp4">
+              </video> 
+            </div>
+            
+          </div>
+          <div class="twentytwenty-container twentytwenty-container-bottom">
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/01_000003903.mp4" type="video/mp4">
+              </video> 
+            </div>
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_semantic_vis/semantic_vis/01_000003903.mp4" type="video/mp4">
+              </video> 
+            </div>
+          </div>
+        </div>
+  
+
+
+        <div class="twoitem">
+          <div class="twentytwenty-container twentytwenty-container-top">
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/02_000003413.mp4" type="video/mp4">
+              </video> 
+            </div>
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/02_000003413.mp4" type="video/mp4">
+              </video> 
+            </div>
+            
+          </div>
+          <div class="twentytwenty-container twentytwenty-container-bottom">
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/05_006008168.mp4" type="video/mp4">
+              </video> 
+            </div>
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/05_006008168.mp4" type="video/mp4">
+              </video> 
+            </div>
+          </div>
+        </div> 
+
+        <div class="twoitem">
+          <div class="twentytwenty-container twentytwenty-container-top">
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/07_000005330.mp4" type="video/mp4">
+              </video> 
+            </div>
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/07_000005330.mp4" type="video/mp4">
+              </video> 
+            </div>
+            
+          </div>
+          <div class="twentytwenty-container twentytwenty-container-bottom">
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/08_000007253.mp4" type="video/mp4">
+              </video> 
+            </div>
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/08_000007253.mp4" type="video/mp4">
+              </video> 
+            </div>
+          </div>
+        </div> 
+
+        <div class="twoitem">
+          <div class="twentytwenty-container twentytwenty-container-top">
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/09_000005885.mp4" type="video/mp4">
+              </video> 
+            </div>
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/09_000005885.mp4" type="video/mp4">
+              </video> 
+            </div>
+            
+          </div>
+          <div class="twentytwenty-container twentytwenty-container-bottom">
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_depth_vis/depth_raw/11_000005339.mp4" type="video/mp4">
+              </video> 
+            </div>
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/11_000005339.mp4" type="video/mp4">
+              </video> 
+            </div>
+          </div>
+        </div> 
+
+        <div class="twoitem">
+          <div class="twentytwenty-container twentytwenty-container-top">
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_depth_vis/depth_raw/12_000008037.mp4" type="video/mp4">
+              </video> 
+            </div>
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image_raw/image_raw/12_000008037.mp4" type="video/mp4">
+              </video> 
+            </div>
+            
+          </div>
+          <div class="twentytwenty-container twentytwenty-container-bottom">
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_depth_vis/depth_raw/13_000007872.mp4" type="video/mp4">
+              </video> 
+            </div>
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image_raw/image_raw/13_000007872.mp4" type="video/mp4">
+              </video> 
+            </div>
+          </div>
+        </div> 
+
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  $(window).on('load', function() {
+    bulmaCarousel.attach('#results-carousel-horizontal', {
+      slidesToScroll: 1,
+      slidesToShow: 3,
+      loop: true,
+      autoplay: true,
+    });
+
+    bulmaCarousel.attach('#results-carousel-vertical', {
+      slidesToScroll: 1,
+      slidesToShow: 3,
+      loop: true,
+      autoplay: true,
+    });
+
+    $(".twentytwenty-container-top").twentytwenty({
+      before_label: 'RGB',
+      after_label: 'Depth',
+      default_offset_pct: 0.5,
+    });
+    $(".twentytwenty-container-bottom").twentytwenty({
+      before_label: 'RGB',
+      after_label: 'Semantic',
+      default_offset_pct: 0.5,
+    });
+    
+  });
+</script> -->
+
+<!-- Camerafly on KITTI-360
+<section class="hero teaser is-light is-small">
+</section>
+  <div class="hero-body">
+    <div class="container">
+      <div class="section-title has-text-centered" style="margin-top: 10px; margin-bottom: 20px;">
+        <h2 class="title is-3">Camera Control on KITTI-360</h2>
+      </div>
+      <div id="results-carousel-horizontal" class="carousel results-carousel">
+
+        
+        <div class="twoitem">
+          <div class="twentytwenty-container twentytwenty-container-top">
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/00_000007835.mp4" type="video/mp4">
+              </video> 
+            </div>
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_depth_vis/depth_vis/00_000007835.mp4" type="video/mp4">
+              </video> 
+            </div>
+            
+          </div>
+          <div class="twentytwenty-container twentytwenty-container-bottom">
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/01_000003903.mp4" type="video/mp4">
+              </video> 
+            </div>
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_semantic_vis/semantic_vis/01_000003903.mp4" type="video/mp4">
+              </video> 
+            </div>
+          </div>
+        </div>
+  
+
+
+        <div class="twoitem">
+          <div class="twentytwenty-container twentytwenty-container-top">
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_style_video/mp4_full/Z-Interpolate_image/image/05_006008168.mp4" type="video/mp4">
+              </video> 
+            </div>
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_style_video/mp4_full/Z-Interpolate_depth_vis/depth_vis/05_006008168.mp4" type="video/mp4">
+              </video> 
+            </div>
+            
+          </div>
+          <div class="twentytwenty-container twentytwenty-container-bottom">
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/05_006008168.mp4" type="video/mp4">
+              </video> 
+            </div>
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_semantic_vis/semantic_vis/05_006008168.mp4" type="video/mp4">
+              </video> 
+            </div>
+          </div>
+        </div> 
+
+        <div class="twoitem">
+          <div class="twentytwenty-container twentytwenty-container-top">
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/07_000005330.mp4" type="video/mp4">
+              </video> 
+            </div>
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_depth_vis/depth_vis/07_000005330.mp4" type="video/mp4">
+              </video> 
+            </div>
+            
+          </div>
+          <div class="twentytwenty-container twentytwenty-container-bottom">
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/08_000007253.mp4" type="video/mp4">
+              </video> 
+            </div>
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_semantic_vis/semantic_vis/08_000007253.mp4" type="video/mp4">
+              </video> 
+            </div>
+          </div>
+        </div> 
+
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  $(window).on('load', function() {
+    bulmaCarousel.attach('#results-carousel-horizontal', {
+      slidesToScroll: 1,
+      slidesToShow: 3,
+      loop: true,
+      autoplay: true,
+    });
+
+    bulmaCarousel.attach('#results-carousel-vertical', {
+      slidesToScroll: 1,
+      slidesToShow: 3,
+      loop: true,
+      autoplay: true,
+    });
+
+    $(".twentytwenty-container-top").twentytwenty({
+      before_label: 'RGB',
+      after_label: 'Depth',
+      default_offset_pct: 0.5,
+    });
+    $(".twentytwenty-container-bottom").twentytwenty({
+      before_label: 'RGB',
+      after_label: 'Semantic',
+      default_offset_pct: 0.5,
+    });
+    
+  });
+</script>  -->
+
+
+<!-- Style Control on KITTI-360 -->
+<!-- <section class="hero teaser is-light is-small">
+</section>
+  <div class="hero-body">
+    <div class="container">
+      <div class="section-title has-text-centered" style="margin-top: 10px; margin-bottom: 20px;">
+        <h2 class="title is-3">Style Interporlation on KITTI-360</h2>
+      </div>
+      <div id="results-carousel-horizontal" class="carousel results-carousel">
+
+        
+        <div class="twoitem">
+          <div class="twentytwenty-container twentytwenty-container-top">
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_style_video/mp4_full/Z-Interpolate_image/image/00_000007835.mp4" type="video/mp4">
+              </video> 
+            </div>
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_style_video/mp4_full/Z-Interpolate_depth_vis/depth_vis/00_000007835.mp4" type="video/mp4">
+              </video> 
+            </div>
+            
+          </div>
+          <div class="twentytwenty-container twentytwenty-container-bottom">
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_style_video/mp4_full/Z-Interpolate_image/image/01_000003903.mp4" type="video/mp4">
+              </video> 
+            </div>
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_style_video/mp4_full/Z-Interpolate_depth_vis/depth_vis/00_000007835.mp4" type="video/mp4">
+              </video> 
+            </div>
+          </div>
+        </div>
+  
+
+
+        <div class="twoitem">
+          <div class="twentytwenty-container twentytwenty-container-top">
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_style_video/mp4_full/Z-Interpolate_image/image/31_004004144.mp4" type="video/mp4">
+              </video> 
+            </div>
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/02_000003413.mp4" type="video/mp4">
+              </video> 
+            </div>
+            
+          </div>
+          <div class="twentytwenty-container twentytwenty-container-bottom">
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/05_006008168.mp4" type="video/mp4">
+              </video> 
+            </div>
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/05_006008168.mp4" type="video/mp4">
+              </video> 
+            </div>
+          </div>
+        </div> 
+
+        <div class="twoitem">
+          <div class="twentytwenty-container twentytwenty-container-top">
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/07_000005330.mp4" type="video/mp4">
+              </video> 
+            </div>
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/07_000005330.mp4" type="video/mp4">
+              </video> 
+            </div>
+            
+          </div>
+          <div class="twentytwenty-container twentytwenty-container-bottom">
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/08_000007253.mp4" type="video/mp4">
+              </video> 
+            </div>
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/08_000007253.mp4" type="video/mp4">
+              </video> 
+            </div>
+          </div>
+        </div> 
+
+        <div class="twoitem">
+          <div class="twentytwenty-container twentytwenty-container-top">
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/09_000005885.mp4" type="video/mp4">
+              </video> 
+            </div>
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/09_000005885.mp4" type="video/mp4">
+              </video> 
+            </div>
+            
+          </div>
+          <div class="twentytwenty-container twentytwenty-container-bottom">
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_depth_vis/depth_raw/11_000005339.mp4" type="video/mp4">
+              </video> 
+            </div>
+            <div class="cmpcontent">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/11_000005339.mp4" type="video/mp4">
+              </video> 
+            </div>
+          </div>
+        </div> 
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  $(window).on('load', function() {
+    bulmaCarousel.attach('#results-carousel-horizontal', {
+      slidesToScroll: 1,
+      slidesToShow: 3,
+      loop: true,
+      autoplay: true,
+    });
+
+    bulmaCarousel.attach('#results-carousel-vertical', {
+      slidesToScroll: 1,
+      slidesToShow: 3,
+      loop: true,
+      autoplay: true,
+    });
+
+    $(".twentytwenty-container-top").twentytwenty({
+      before_label: 'RGB',
+      after_label: 'Depth',
+      default_offset_pct: 0.5,
+    });
+    $(".twentytwenty-container-bottom").twentytwenty({
+      before_label: 'RGB',
+      after_label: 'Semantic',
+      default_offset_pct: 0.5,
+    });
+    
+  });
+</script>
+
+ -->
+
+
+<section class="section pt-0" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">Citation</h2>
+    <pre class="selectable"><code>@article{yang2024urban,
+        title={UrbanGen: Urban Generation with Compositional and Controllable Neural Fields}, 
+        author={Yuanbo Yang and Yujun Shen and Yue Wang and Andreas Geiger and Yiyi Liao},
+        year={2024},
+        eprint={2406.01493},
+        archivePrefix={arXiv},
+        primaryClass={cs.CV}
+  }</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer pt-4 pb-0">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            Website template based on
+            <a href="https://github.com/nerfies/nerfies.github.io">
+              Nerfies
+            </a>
+            and licensed under
+            <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+              CC-BY-SA-4.0
+            </a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
