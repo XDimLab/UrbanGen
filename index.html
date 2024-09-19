@@ -194,7 +194,9 @@
     <!--/ Method. -->
   </div>
 </section>
-<!-- 
+
+
+<!-- CAMERA Control on KITTI-360 -->
 <section class="hero teaser is-light is-small">
 </section>
   <div class="hero-body">
@@ -382,114 +384,105 @@
     });
     
   });
-</script> -->
+</script>
 
-<!-- Camerafly on KITTI-360
+
+<!-- CAMERA Control on KITTI-360 -->
 <section class="hero teaser is-light is-small">
 </section>
-  <div class="hero-body">
-    <div class="container">
-      <div class="section-title has-text-centered" style="margin-top: 10px; margin-bottom: 20px;">
-        <h2 class="title is-3">Camera Control on KITTI-360</h2>
-      </div>
-      <div id="results-carousel-horizontal" class="carousel results-carousel">
+<div class="hero-body">
+  <div class="container">
+    <div class="section-title has-text-centered" style="margin-top: 10px; margin-bottom: 20px;">
+      <h2 class="title is-3">Camera Comtrol on KITTI-360</h2>
+    </div>
+    <div id="results-carousel-horizontal" class="carousel results-carousel">
 
-        
-        <div class="twoitem">
-          <div class="twentytwenty-container twentytwenty-container-top">
-            <div class="cmpcontent">
-              <video muted autoplay="autoplay" loop="loop" width="100%">
-              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/00_000007835.mp4" type="video/mp4">
-              </video> 
-            </div>
-            <div class="cmpcontent">
-              <video muted autoplay="autoplay" loop="loop" width="100%">
-              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_depth_vis/depth_vis/00_000007835.mp4" type="video/mp4">
-              </video> 
-            </div>
-            
+
+      <div class="twoitem">
+      <div class="single-video-container">
+        <video muted autoplay="autoplay" loop="loop" width="100%">
+          <source src="videos_/kitti_fly_video/mp4_full/FlyCamera_image/image/00_000007835.mp4" type="video/mp4">
+        </video>
+
+        <div class="twentytwenty-container twentytwenty-container-bottom">
+          <div class="cmpcontent">
+            <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos_/kitti_fly_video/mp4_full/FlyCamera_image/image/01_000003903.mp4" type="video/mp4">
+            </video>
           </div>
-          <div class="twentytwenty-container twentytwenty-container-bottom">
-            <div class="cmpcontent">
-              <video muted autoplay="autoplay" loop="loop" width="100%">
-              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/01_000003903.mp4" type="video/mp4">
-              </video> 
-            </div>
-            <div class="cmpcontent">
-              <video muted autoplay="autoplay" loop="loop" width="100%">
-              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_semantic_vis/semantic_vis/01_000003903.mp4" type="video/mp4">
-              </video> 
-            </div>
+          <div class="cmpcontent">
+            <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos_/kitti_fly_video/mp4_full/FlyCamera_semantic_vis/semantic_vis/01_000003903.mp4"
+                type="video/mp4">
+            </video>
           </div>
         </div>
-  
 
-
-        <div class="twoitem">
-          <div class="twentytwenty-container twentytwenty-container-top">
-            <div class="cmpcontent">
-              <video muted autoplay="autoplay" loop="loop" width="100%">
-              <source src="videos/kitti_style_video/mp4_full/Z-Interpolate_image/image/05_006008168.mp4" type="video/mp4">
-              </video> 
-            </div>
-            <div class="cmpcontent">
-              <video muted autoplay="autoplay" loop="loop" width="100%">
-              <source src="videos/kitti_style_video/mp4_full/Z-Interpolate_depth_vis/depth_vis/05_006008168.mp4" type="video/mp4">
-              </video> 
-            </div>
-            
-          </div>
-          <div class="twentytwenty-container twentytwenty-container-bottom">
-            <div class="cmpcontent">
-              <video muted autoplay="autoplay" loop="loop" width="100%">
-              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/05_006008168.mp4" type="video/mp4">
-              </video> 
-            </div>
-            <div class="cmpcontent">
-              <video muted autoplay="autoplay" loop="loop" width="100%">
-              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_semantic_vis/semantic_vis/05_006008168.mp4" type="video/mp4">
-              </video> 
-            </div>
-          </div>
-        </div> 
-
-        <div class="twoitem">
-          <div class="twentytwenty-container twentytwenty-container-top">
-            <div class="cmpcontent">
-              <video muted autoplay="autoplay" loop="loop" width="100%">
-              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/07_000005330.mp4" type="video/mp4">
-              </video> 
-            </div>
-            <div class="cmpcontent">
-              <video muted autoplay="autoplay" loop="loop" width="100%">
-              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_depth_vis/depth_vis/07_000005330.mp4" type="video/mp4">
-              </video> 
-            </div>
-            
-          </div>
-          <div class="twentytwenty-container twentytwenty-container-bottom">
-            <div class="cmpcontent">
-              <video muted autoplay="autoplay" loop="loop" width="100%">
-              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/08_000007253.mp4" type="video/mp4">
-              </video> 
-            </div>
-            <div class="cmpcontent">
-              <video muted autoplay="autoplay" loop="loop" width="100%">
-              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_semantic_vis/semantic_vis/08_000007253.mp4" type="video/mp4">
-              </video> 
-            </div>
-          </div>
-        </div> 
-
-
+        </div>
       </div>
-    </div>
 
-  </div>
+
+      <div class="twoitem">
+        <div class="twentytwenty-container twentytwenty-container-bottom">
+          <div class="cmpcontent">
+            <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos_/kitti_fly_video/mp4_full/FlyCamera_image/image/17_000003903.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="cmpcontent">
+            <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos_/kitti_fly_video/mp4_full/FlyCamera_image/image/27_000005339.mp4"
+                type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="single-video-container">
+          <video muted autoplay="autoplay" loop="loop" width="100%">
+            <source src="videos_/kitti_fly_video/mp4_full/FlyCamera_semantic_vis/semantic_vis/27_000005339.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+
+        <div class="twoitem">
+          <div class="single-video-container">
+            <video muted autoplay="autoplay" loop="loop" width="100%">
+              <source src="videos_/kitti_fly_video/mp4_full/FlyCamera_image/image/11_000005339.mp4" type="video/mp4">
+            </video>
+        
+            <div class="twentytwenty-container twentytwenty-container-bottom">
+              <div class="cmpcontent">
+                <video muted autoplay="autoplay" loop="loop" width="100%">
+                  <source src="videos_/kitti_fly_video/mp4_full/FlyCamera_image/image/07_000005330.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="cmpcontent">
+                <video muted autoplay="autoplay" loop="loop" width="100%">
+                  <source src="videos_/kitti_fly_video/mp4_full/FlyCamera_depth_vis/depth_vis/07_000005330.mp4"
+                    type="video/mp4">
+                </video>
+              </div>
+            </div>
+        
+          </div>
+        </div>
+
+</div>
 </section>
 
+
+<!-- TODO Style Control on nuScenes / Waymo -->
+
+<!-- TODO Object Control on nuScenes / Waymo -->
+
+<!-- TODO Camera Control on nuScenes / Waymo -->
+
+<!-- TODO Domain Style Transfer -->
+
+<!-- TODO Comparsion -->
+
 <script>
-  $(window).on('load', function() {
+  $(window).on('load', function () {
     bulmaCarousel.attach('#results-carousel-horizontal', {
       slidesToScroll: 1,
       slidesToShow: 3,
@@ -514,13 +507,13 @@
       after_label: 'Semantic',
       default_offset_pct: 0.5,
     });
-    
+
   });
-</script>  -->
+</script>
 
 
 <!-- Style Control on KITTI-360 -->
-<!-- <section class="hero teaser is-light is-small">
+<section class="hero teaser is-light is-small">
 </section>
   <div class="hero-body">
     <div class="container">
@@ -529,121 +522,73 @@
       </div>
       <div id="results-carousel-horizontal" class="carousel results-carousel">
 
-        
-        <div class="twoitem">
-          <div class="twentytwenty-container twentytwenty-container-top">
-            <div class="cmpcontent">
-              <video muted autoplay="autoplay" loop="loop" width="100%">
-              <source src="videos/kitti_style_video/mp4_full/Z-Interpolate_image/image/00_000007835.mp4" type="video/mp4">
-              </video> 
-            </div>
-            <div class="cmpcontent">
-              <video muted autoplay="autoplay" loop="loop" width="100%">
-              <source src="videos/kitti_style_video/mp4_full/Z-Interpolate_depth_vis/depth_vis/00_000007835.mp4" type="video/mp4">
-              </video> 
-            </div>
-            
-          </div>
-          <div class="twentytwenty-container twentytwenty-container-bottom">
-            <div class="cmpcontent">
-              <video muted autoplay="autoplay" loop="loop" width="100%">
-              <source src="videos/kitti_style_video/mp4_full/Z-Interpolate_image/image/01_000003903.mp4" type="video/mp4">
-              </video> 
-            </div>
-            <div class="cmpcontent">
-              <video muted autoplay="autoplay" loop="loop" width="100%">
-              <source src="videos/kitti_style_video/mp4_full/Z-Interpolate_depth_vis/depth_vis/00_000007835.mp4" type="video/mp4">
-              </video> 
-            </div>
-          </div>
+      <div class="twoitem">
+        <div class="single-video-container">
+          <video muted autoplay="autoplay" loop="loop" width="100%">
+            <source src="videos/kitti_style_video/mp4_full/Z-Interpolate_image/image/31_004004144.mp4" type="video/mp4">
+          </video>
         </div>
-  
+        <div class="single-video-container">
+          <video muted autoplay="autoplay" loop="loop" width="100%">
+            <source src="videos/kitti_style_video/mp4_full/Z-Interpolate_image/image/11_000005339.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
 
 
-        <div class="twoitem">
-          <div class="twentytwenty-container twentytwenty-container-top">
-            <div class="cmpcontent">
-              <video muted autoplay="autoplay" loop="loop" width="100%">
-              <source src="videos/kitti_style_video/mp4_full/Z-Interpolate_image/image/31_004004144.mp4" type="video/mp4">
-              </video> 
-            </div>
-            <div class="cmpcontent">
-              <video muted autoplay="autoplay" loop="loop" width="100%">
-              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/02_000003413.mp4" type="video/mp4">
-              </video> 
-            </div>
-            
-          </div>
-          <div class="twentytwenty-container twentytwenty-container-bottom">
-            <div class="cmpcontent">
-              <video muted autoplay="autoplay" loop="loop" width="100%">
-              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/05_006008168.mp4" type="video/mp4">
-              </video> 
-            </div>
-            <div class="cmpcontent">
-              <video muted autoplay="autoplay" loop="loop" width="100%">
-              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/05_006008168.mp4" type="video/mp4">
-              </video> 
-            </div>
-          </div>
-        </div> 
+      <div class="twoitem">
+        <div class="single-video-container">
+          <video muted autoplay="autoplay" loop="loop" width="100%">
+            <source src="videos/kitti_style_video/mp4_full/Z-Interpolate_image/image/00_000007835.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="single-video-container">
+          <video muted autoplay="autoplay" loop="loop" width="100%">
+            <source src="videos/kitti_style_video/mp4_full/Z-Interpolate_image/image/05_006008168.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
 
-        <div class="twoitem">
-          <div class="twentytwenty-container twentytwenty-container-top">
-            <div class="cmpcontent">
-              <video muted autoplay="autoplay" loop="loop" width="100%">
-              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/07_000005330.mp4" type="video/mp4">
-              </video> 
-            </div>
-            <div class="cmpcontent">
-              <video muted autoplay="autoplay" loop="loop" width="100%">
-              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/07_000005330.mp4" type="video/mp4">
-              </video> 
-            </div>
-            
-          </div>
-          <div class="twentytwenty-container twentytwenty-container-bottom">
-            <div class="cmpcontent">
-              <video muted autoplay="autoplay" loop="loop" width="100%">
-              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/08_000007253.mp4" type="video/mp4">
-              </video> 
-            </div>
-            <div class="cmpcontent">
-              <video muted autoplay="autoplay" loop="loop" width="100%">
-              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/08_000007253.mp4" type="video/mp4">
-              </video> 
-            </div>
-          </div>
-        </div> 
 
-        <div class="twoitem">
-          <div class="twentytwenty-container twentytwenty-container-top">
-            <div class="cmpcontent">
-              <video muted autoplay="autoplay" loop="loop" width="100%">
-              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/09_000005885.mp4" type="video/mp4">
-              </video> 
-            </div>
-            <div class="cmpcontent">
-              <video muted autoplay="autoplay" loop="loop" width="100%">
-              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/09_000005885.mp4" type="video/mp4">
-              </video> 
-            </div>
-            
-          </div>
-          <div class="twentytwenty-container twentytwenty-container-bottom">
-            <div class="cmpcontent">
-              <video muted autoplay="autoplay" loop="loop" width="100%">
-              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_depth_vis/depth_raw/11_000005339.mp4" type="video/mp4">
-              </video> 
-            </div>
-            <div class="cmpcontent">
-              <video muted autoplay="autoplay" loop="loop" width="100%">
-              <source src="videos/kitti_object_video/mp4_full/RotateObject_MoveObject_image/image/11_000005339.mp4" type="video/mp4">
-              </video> 
-            </div>
-          </div>
-        </div> 
+      <div class="twoitem">
+        <div class="single-video-container">
+          <video muted autoplay="autoplay" loop="loop" width="100%">
+            <source src="videos/kitti_style_video/mp4_full/Z-Interpolate_image/image/15_000007978.mp4" type="video/mp4"> 
+          </video>
+        </div>
+        <div class="single-video-container">
+          <video muted autoplay="autoplay" loop="loop" width="100%">
+            <source src="videos/kitti_style_video/mp4_full/Z-Interpolate_image/image/19_007000159.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
 
+
+      <div class="twoitem">
+        <div class="single-video-container">
+          <video muted autoplay="autoplay" loop="loop" width="100%">
+            <source src="videos/kitti_style_video/mp4_full/Z-Interpolate_image/image/29_000003538.mp4" type="video/mp4"> 
+          </video>
+        </div>
+        <div class="single-video-container">
+          <video muted autoplay="autoplay" loop="loop" width="100%">
+            <source src="videos/kitti_style_video/mp4_full/Z-Interpolate_image/image/01_000003903.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+          <div class="twoitem">
+            <div class="single-video-container">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+                <source src="videos/kitti_style_video/mp4_full/Z-Interpolate_image/image/30_000007835.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="single-video-container">
+              <video muted autoplay="autoplay" loop="loop" width="100%">
+                <source src="videos/kitti_style_video/mp4_full/Z-Interpolate_image/image/26_009005035.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
       </div>
     </div>
 
@@ -665,22 +610,11 @@
       loop: true,
       autoplay: true,
     });
-
-    $(".twentytwenty-container-top").twentytwenty({
-      before_label: 'RGB',
-      after_label: 'Depth',
-      default_offset_pct: 0.5,
-    });
-    $(".twentytwenty-container-bottom").twentytwenty({
-      before_label: 'RGB',
-      after_label: 'Semantic',
-      default_offset_pct: 0.5,
-    });
     
   });
 </script>
 
- -->
+
 
 
 <section class="section pt-0" id="BibTeX">
